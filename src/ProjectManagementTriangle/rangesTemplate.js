@@ -84,11 +84,6 @@ export class ExampleApp extends React.Component {
                 nextState[checkedDC] = this.state[checkedDC] - 1;
 
             }
-
-
-
-            console.log(nextState);
-
             return nextState;
         })
     }
