@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import {ExampleApp} from "./ProjectManagementTriangle/rangesTemplate";
+
+import './ProjectManagementTriangle/range.css'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-            <Title>Hello</Title>
-        </header>
-      </div>
+      <Root className="App">
+          <ExampleApp min={1} max={10}/>
+      </Root>
     );
   }
 }
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
+const Root = styled.div`
+    * {
+        box-sizing: border-box;
+    }
 `;
+
 
 export default App;

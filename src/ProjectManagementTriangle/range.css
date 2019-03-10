@@ -1,0 +1,117 @@
+
+.project-management-triangle {
+    font-family: 'Raleway', sans-serif;
+}
+
+.project-management-triangle .cost,
+.project-management-triangle .time,
+.project-management-triangle .scope {
+    padding: 30px 0;
+}
+
+.project-management-triangle .input-range__slider {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border: solid 4px #c4c4c4;
+    background-color: #ffffff;
+    border-radius: 50%;
+    cursor: grab;
+    display: block;
+    margin-left: -10px;
+    margin-top: -15px;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.1s linear, box-shadow 0.1s linear;
+}
+
+.project-management-triangle .input-range__slider:active {
+    transform: none;
+}
+
+.project-management-triangle .input-range__slider:focus {
+    box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.2);
+}
+
+.project-management-triangle .input-range--disabled .input-range__slider {
+    background: #cccccc;
+    border: 1px solid #cccccc;
+    box-shadow: none;
+    transform: none;
+}
+
+.project-management-triangle .input-range__slider-container {
+    transition: left 0.1s linear;
+}
+
+.project-management-triangle .input-range__label {
+    color: #aaaaaa;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    transform: translateZ(0);
+    white-space: nowrap;
+}
+
+.project-management-triangle .input-range__label--min,
+.project-management-triangle .input-range__label--max {
+    bottom: -18px;
+    position: absolute;
+}
+
+.project-management-triangle .input-range__label--min {
+    left: 0;
+}
+
+.project-management-triangle .input-range__label--max {
+    right: 0;
+}
+
+.project-management-triangle .input-range__label--value {
+    position: absolute;
+    top: -30px;
+}
+
+.project-management-triangle .input-range__label-container {
+    left: -50%;
+    position: relative;
+}
+
+.project-management-triangle .input-range__label--max .input-range__label-container {
+    left: 50%;
+}
+
+.project-management-triangle .input-range__track {
+    height: 2px;
+    background-color: #e5e5e5;
+    border-radius: 2px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    transition: left 0.1s linear, width 0.1s linear;
+}
+
+.project-management-triangle .input-range--disabled .input-range__track {
+    background: #eeeeee;
+}
+
+.project-management-triangle .input-range__track--background {
+    left: 0;
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+.project-management-triangle .input-range__track--active {
+    background: #4f4f4f;
+}
+
+.project-management-triangle .input-range {
+    height: 30px;
+    position: relative;
+    width: 100%;
+}
+
+/*# sourceMappingURL=index.css.map */
