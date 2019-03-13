@@ -27,7 +27,7 @@ export class ExampleApp extends React.Component {
 
     static textForRangePoint(value, name) {
         const currentTexts = textForLabels[name];
-        return currentTexts[value - 1] ? currentTexts[value - 1] : 'add text!!!';
+        return currentTexts[value] ? currentTexts[value] : 'add text!!!';
     }
 
     static getRandom() {
