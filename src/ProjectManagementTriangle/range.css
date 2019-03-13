@@ -1,6 +1,11 @@
 
 .project-management-triangle {
     font-family: 'Raleway', sans-serif;
+
+}
+
+.project-management-triangle * {
+    box-sizing: border-box;
 }
 
 .project-management-triangle .cost,

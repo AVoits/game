@@ -12,23 +12,23 @@ export class ExampleApp extends React.Component {
         super(props);
 
         this.state = {
-            cost: 5,
-            time: 5,
-            scope: 5,
+            commonPoints: ((this.props.max) * ExampleApp.params.length)/2,
+            cost: this.props.max/2,
+            time: this.props.max/2,
+            scope: this.props.max/2,
             dependentComponent: null,
         };
 
         this.rangeChange = this.rangeChange.bind(this);
 
-        ExampleApp.labelText = ExampleApp.labelText.bind(this);
+        ExampleApp.textForRangePoint = ExampleApp.textForRangePoint.bind(this);
 
     }
 
-    static labelText(value, name) {
+    static textForRangePoint(value, name) {
         const currentTexts = textForLabels[name];
-        return currentTexts[value - 1];
+        return currentTexts[value - 1] ? currentTexts[value - 1] : 'add text!!!';
     }
-
 
     static getRandom() {
        return ExampleApp.getRandomInt(0, 2);
@@ -38,52 +38,63 @@ export class ExampleApp extends React.Component {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-
     getComponentsExceptCurrent(currentRange) {
         return ExampleApp.params.filter(item => item !== currentRange);
     }
-
-
 
     rangeChange(value, currentRangeName) {
 
         const params = this.getComponentsExceptCurrent(currentRangeName);
         const randomNextDC = params[ExampleApp.getRandom()];
+        const anotherNextDC = params.filter(item => item !== randomNextDC)[0];
 
-
-        this.setState((prevState, props) => {
-
-            const mathAction = prevState[currentRangeName] > value ? 'plus' : 'minus';
+        this.setState((prevState) => {
 
             const nextState = {};
 
-            if(mathAction === 'plus') {
+            if(Math.abs(prevState[currentRangeName] - value) !== 1) {
 
-                const checkedDC = this.state[randomNextDC] !== 10 ?
-                    randomNextDC :
-                    params.filter(item => item !== randomNextDC)[0];
+                nextState.time = this.props.max/2;
+                nextState.scope = this.props.max/2;
+                nextState.cost = this.props.max/2;
+                nextState.dependentComponent = null;
 
-                nextState.dependentComponent = checkedDC;
+                console.error(`нарушен шаг ${prevState[currentRangeName] - value} хз почему`);
 
-                nextState[currentRangeName] = value;
-
-                nextState[checkedDC] = this.state[checkedDC] + 1;
-
+                return nextState;
             }
 
-            if (mathAction === 'minus') {
 
-                const checkedDC = this.state[randomNextDC] > 0 ?
-                    randomNextDC :
-                    params.filter(item => item !== randomNextDC)[0];
+            const mathAction = prevState[currentRangeName] > value ? 'minus' : 'plus';
 
-                nextState.dependentComponent = checkedDC;
+            nextState[currentRangeName] = value;
 
-                nextState[currentRangeName] = value;
+            if(mathAction === 'minus') {
 
-                nextState[checkedDC] = this.state[checkedDC] - 1;
+                const currentDC = this.state[randomNextDC] < this.props.max ?
+                    randomNextDC : anotherNextDC;
 
+                const restParam = params.filter(item => item !== currentRangeName && item !== currentDC)[0];
+                nextState[restParam] = this.state[restParam];
+
+                nextState.dependentComponent = currentDC;
+
+                nextState[currentDC] = this.state.commonPoints - value - prevState[restParam];
             }
+
+            if (mathAction === 'plus') {
+
+                const currentDC = this.state[randomNextDC] === 0 ?
+                    anotherNextDC : randomNextDC;
+
+                const restParam = params.filter(item => item !== currentRangeName && item !== currentDC)[0];
+                nextState[restParam] = this.state[restParam];
+
+                nextState.dependentComponent = currentDC;
+
+                nextState[currentDC] = this.state.commonPoints - value - this.state[restParam];
+            }
+
             return nextState;
         })
     }
@@ -101,9 +112,10 @@ export class ExampleApp extends React.Component {
                         <section className={'scope'}>
                             <SectionTitle>
                                 <span>Качество</span>
-                                <span>{ExampleApp.labelText(this.state.scope, 'scope')}</span>
+                                <span>{ExampleApp.textForRangePoint(this.state.scope, 'scope')}</span>
                             </SectionTitle>
                             <InputRange
+                                step={1}
                                 formatLabel={() => ''}
                                 name={'scope'}
                                 maxValue={this.props.max}
@@ -114,9 +126,10 @@ export class ExampleApp extends React.Component {
                         <section className={'cost'}>
                             <SectionTitle>
                                 <span>Стоимость</span>
-                                <span>{ExampleApp.labelText(this.state.cost, 'cost')}</span>
+                                <span>{ExampleApp.textForRangePoint(this.state.cost, 'cost')}</span>
                             </SectionTitle>
                             <InputRange
+                                step={1}
                                 formatLabel={() => ''}
                                 name={'cost'}
                                 maxValue={this.props.max}
@@ -128,9 +141,10 @@ export class ExampleApp extends React.Component {
                         <section className={'time'}>
                             <SectionTitle>
                                 <span>Скорость</span>
-                                <span>{ExampleApp.labelText(this.state.time, 'time')}</span>
+                                <span>{ExampleApp.textForRangePoint(this.state.time, 'time')}</span>
                             </SectionTitle>
                             <InputRange
+                                step={1}
                                 formatLabel={() => ''}
                                 name={'time'}
                                 maxValue={this.props.max}

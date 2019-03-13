@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import {ExampleApp} from "./ProjectManagementTriangle/rangesTemplate";
 
 import './ProjectManagementTriangle/range.css'
@@ -7,18 +6,13 @@ import './ProjectManagementTriangle/range.css'
 class App extends Component {
   render() {
     return (
-      <Root className="App">
-          <ExampleApp min={1} max={10}/>
-      </Root>
+      <div className="App">
+          <ExampleApp min={0} max={6}/>
+      </div>
     );
   }
 }
 
-const Root = styled.div`
-    * {
-        box-sizing: border-box;
-    }
-`;
 
 
 export default App;
